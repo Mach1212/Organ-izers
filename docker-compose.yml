@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: docker.io/surrealdb/surrealdb:1.0.0
+    env_file:
+      - .env
+    ports: 
+      - ${DB_PORT:?error}:$DB_PORT
+    volumes:
+      - /db
+    entrypoint: 
+      - /surreal 
+      - start 
+      - --user
+      - ${DB_USER:?error}
+      - --pass
+      - ${DB_PASSWORD:?error}
+      - --bind
+      - 0.0.0.0:${DB_PORT:?error}
+      # - file://db
