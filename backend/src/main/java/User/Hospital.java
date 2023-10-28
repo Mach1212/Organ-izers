@@ -24,10 +24,6 @@ public class Hospital {
         inventory = new int[4];
         requiredInventory = new int[4];
 
-        for (int i = 0; i < 4; i++) {
-            inventory[i] = 0;
-            requiredInventory[i] = 0;
-        }
     }
 
     public Hospital(String name, double latitude, double longitude, int[] inventory, int[] requiredInventory) {

@@ -13,8 +13,8 @@ public class Drone {
     /** Destination location data */
     double destLatitude;
     double destLongitude;
-    /** Drone will fly at 80 mph, 117.33 feet per second: Calculations are in feet per second */
-    static double speed = 117.33;
+    /** Drone will fly at 40 mph, 58.66 feet per second: Calculations are in feet per second */
+    static double speed = 58.66;
     /** The displacement of the drone's longitude in degrees/second */
     double longDisplacement;
     /** The displacement of the drone's latitude in degrees/second */
