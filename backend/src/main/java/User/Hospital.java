@@ -3,9 +3,9 @@ package User;
 import java.util.Arrays;
 
 public class Hospital {
-    private String name;
-    private double latitude;
-    private double longitude;
+    private final String name;
+    private final double latitude;
+    private final double longitude;
     /**
      * Each index is a different organ
      * 0: Heart
