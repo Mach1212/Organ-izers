@@ -1,4 +1,7 @@
 package User;
+
+import java.util.Arrays;
+
 public class Hospital {
     private String name;
     private double latitude;
@@ -38,22 +41,46 @@ public class Hospital {
         this.requiredInventory = requiredInventory;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
     /**
      * Returns the amount of organs needed after an amount are used
      *
      * @param idx    The index, representing the organ type
      * @param amount The amount of organs used
-     * @return The amount of organs neccessary to meet standards
+     * @return The amount of organs necessary to meet standards
      */
 
-    int use(int idx, int amount) {
-        if (inventory[idx] == 0) {
-            throw new IllegalArgumentException("No organ to use here");
+    public int use(int idx, int amount) {
+        if (inventory[idx] - amount < 0) {
+            throw new IllegalArgumentException("Not enough organs to use here");
         }
+
         inventory[idx] -= amount;
         if (inventory[idx] < requiredInventory[idx]) {
-            return inventory[idx] - requiredInventory[idx];
+            return requiredInventory[idx] - inventory[idx];
         }
         return 0;
+    }
+
+    public int[] getSurplus() {
+        int[] list = {0, 0, 0, 0};
+        for (int i = 0; i < 4; i++) {
+            list[i] = inventory[i] - requiredInventory[i];
+        }
+
+        return list;
+    }
+
+    @Override
+    public String toString() {
+        return name + " Lat: " + latitude + " Long: " + longitude + " Inv: " + Arrays.toString(inventory) +
+                " Req. Inv: " + Arrays.toString(requiredInventory);
     }
 }
