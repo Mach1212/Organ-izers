@@ -9,7 +9,7 @@ public class Util {
         return Math.sqrt((latDif * latDif) + (longDif * longDif));
     }
 
-    public static HospitalclosestValidHospital(Hospital[] list, Hospital hospital, int idx, int amount) {
+    public static Hospital closestValidHospital(Hospital[] list, Hospital hospital, int idx, int amount) {
         Hospital closestValid = null;
         double minDist = Integer.MAX_VALUE;
         for (Hospital value : list) {
