@@ -28,6 +28,18 @@ public class Hospital {
         }
     }
 
+    public Hospital(String name, double latitude, double longitude, int[4] inventory, int[4] requiredInventory) {
+        this(name, latitude, longitude, inventory, {0, 0, 0, 0});
+    }
+
+    public Hospital(String name, double latitude, double longitude, int[4] inventory, int[4] requiredInventory) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.inventory = inventory;
+        this.requiredInventory = requiredInventory;
+    }
+
     /**
      * Returns the amount of organs needed after an amount are used
      * @param idx The index, representing the organ type
