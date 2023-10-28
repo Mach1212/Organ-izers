@@ -11,7 +11,7 @@ public class Main {
         SurrealWebSocketConnection conn = new SurrealWebSocketConnection("localhost", 8082, false);
         conn.connect(5);
         SyncSurrealDriver driver = new SyncSurrealDriver(conn);
-        driver.signIn("root", "root");
+        driver.signIn("hacknc", "a_totally_secure_password_is_really_long");
         driver.use("namespace-name", "database-name");
         String tableName = "hospital";
         driver.delete(tableName);
