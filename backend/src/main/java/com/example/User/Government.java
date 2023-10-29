@@ -26,7 +26,7 @@ public class Government {
         System.out.println("UNC using 2, 1's: (1) " + h1.use(1, 2));
 
         h1 = new Hospital("UNC", 50.0, 60.0, new int[]{2, 3, 2, 2}, new int[]{2, 2, 2, 2});
-        Hospital[] list = {h1, h2, h3};
+        Hospital[] list = {h1, h2};
         System.out.println("Closest To UNC Using 2, 1's: (Duke) " + Util.closestValidHospital(list, h1, 1, h1.use(1, 2)));
         System.out.println("UNC Surplus: (0.-1.0.0: Needs drone) " + Arrays.toString(h1.getSurplus()));
         System.out.println();
