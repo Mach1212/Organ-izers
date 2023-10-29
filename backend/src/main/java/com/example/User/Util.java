@@ -1,6 +1,8 @@
 package com.example.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Util {
 
@@ -40,13 +42,13 @@ public class Util {
         return closestValid;
     }
 
-    public static int[] createPayload(int idx, int amt) {
-        int[] payload = new int[4];
-        for (int i = 0; i < idx; i++)
-            payload[i] = 0;
-        payload[idx] = amt;
-        for (int i = idx + 1; i < 4; i++)
-            payload[i] = 0;
+    public static Map<String, Integer> createPayload(String idx, int amt) {
+        Map<String, Integer> payload = new HashMap<>();
+        payload.put("Heart", 0);
+        payload.put("Liver", 0);
+        payload.put("Kidney", 0);
+        payload.put("Blood", 0);
+        payload.put(idx, amt);
 
         return payload;
     }

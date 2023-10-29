@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, DeploymentException, URISyntaxException, IOException {
@@ -25,18 +26,24 @@ public class Main {
         driver.signIn("hacknc", "a_totally_secure_password_is_really_long");
         driver.use("namespace-name", "database-name");
 
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Heart", 0);
+        map.put("Liver", 0);
+        map.put("Kidney", 0);
+        map.put("Blood", 0);
+
         Hospital unc = driver.create(tableName, new Hospital("UNC Hospitals", 35.903953, -79.050705,
-                new HashMap<>(), new HashMap<>()));
+                map, map));
         Hospital duke = driver.create(tableName, new Hospital("Duke University Hospital", 36.007359, -78.937439,
-                new HashMap<>(), new HashMap<>()));
+                map, map));
         Hospital uncSurg = driver.create(tableName, new Hospital("UNC Surgery Clinic", 35.90420, -79.011630,
-                new HashMap<>(), new HashMap<>()));
+                map, map));
         Hospital central = driver.create(tableName, new Hospital("Central Regional Hospital", 36.145481, -78.771851,
-                new HashMap<>(), new HashMap<>()));
+                map, map));
         Hospital uncHills = driver.create(tableName, new Hospital("UNC Hospitals Hillsborough Campus", 36.039909, -79.092922,
-                new HashMap<>(), new HashMap<>()));
+                map, map));
         Hospital durham = driver.create(tableName, new Hospital("Durham VA Healthcare and Emergency Room", 36.009312, -78.938248,
-                new HashMap<>(), new HashMap<>()));
+                map, map));
         List<Hospital> allHospitals = driver.select(tableName, Hospital.class);
         //driver.select(unc.id, Hospital.class).get(0).use(1, 2) Gets individual hospital
 

@@ -2,6 +2,8 @@ package com.example.User;
 
 //@@ -1,32 +1,130 @@
 
+import java.util.Map;
+
 public class Drone {
     String name;
     /**
@@ -33,7 +35,7 @@ public class Drone {
     /**
      * An array where the index's represent the organs and the values represent the number of each
      */
-    int[] payload;
+    Map <String, Integer> payload;
 
     /**
      * Generic Constructor
@@ -42,7 +44,6 @@ public class Drone {
         name = "";
         latitude = 0;
         longitude = 0;
-        payload = new int[]{0, 0, 0, 0};
         latDisplacement = 0;
         longDisplacement = 0;
     }
@@ -56,7 +57,7 @@ public class Drone {
      * @param payload     What the drone's carrying
      */
 
-    public Drone(String name, Hospital base, Hospital destination, int[] payload) {
+    public Drone(String name, Hospital base, Hospital destination, Map<String, Integer> payload) {
         this.name = name;
         this.latitude = base.getLatitude();
         this.longitude = base.getLongitude();
@@ -88,7 +89,7 @@ public class Drone {
         this.longDisplacement = speed * Math.cos(direction) / 288200;
     }
 
-    public int[] getPayload() {
+    public Map<String, Integer> getPayload() {
         return payload;
     }
 
