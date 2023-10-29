@@ -3,15 +3,16 @@
 import Sidebar from "@/components/sidebar";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { useMapEvents } from "react-leaflet";
 import { Surreal } from "surrealdb.js";
+import { extend } from "lodash";
 
 const Map = dynamic(() => import("@/components/map"), {
   ssr: false,
 });
 
 const db = new Surreal();
-const getHospitals = () => db.select("Hospital");
+const hospitalTableName = "Hospital";
+const getHospitals = () => db.select(hospitalTableName);
 
 export default function App() {
   let [hospitals, setHospitals] = useState([]);
@@ -21,11 +22,33 @@ export default function App() {
       const hospitals = await getHospitals();
       setHospitals(hospitals);
     };
-    getData();
+    let promise = getData();
+    // const setLiveQuery = async () => {
+    //   await db.live(
+    //     hospitalTableName,
+    //     // The callback function takes an object with the "action" and "result" properties
+    //     ({ action, result }) => {
+    //       // action can be: "CREATE", "UPDATE", "DELETE" or "CLOSE"
+    //       if (action === "CLOSE") return;
+    //
+    //       setHospitals(hospitals.extend([result]));
+    //     },
+    //   );
+    // };
+    // setLiveQuery();
   }, []);
 
   let [showSidebar, setShowSidebar] = useState(false);
   let [sidebarHospital, setSidebarHospital] = useState({});
+  const onValueChange = (e, hospital, organ) => {
+    const patchData = async () => {
+      let result = await db.merge(hospital.id, {
+        inventory: { [organ]: Number(e.target.value) },
+      });
+      console.log(result);
+    };
+    patchData();
+  };
 
   const visibleSidebar = (hospital) => {
     setSidebarHospital(hospital);
@@ -49,6 +72,7 @@ export default function App() {
         hideSidebar={hideSidebar}
         showSidebar={showSidebar}
         hospital={sidebarHospital}
+        onValueChange={onValueChange}
       />
     </main>
   );
