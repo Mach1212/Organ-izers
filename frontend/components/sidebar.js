@@ -1,7 +1,17 @@
-function Sidebar({ children }) {
+"use client";
+
+import Image from "next/image";
+import xIcon from "@/public/x-mark.svg";
+
+function Sidebar(
+  { className, hideSidebar, showSidebar, toggleClasses },
+) {
+  let classes = showSidebar ? className : [className, toggleClasses];
   return (
-    <section className="w-80 h-full bg-red-400">
-      {children}
+    <section className={classes}>
+      <button onClick={hideSidebar}>
+        <Image src={xIcon} />
+      </button>
     </section>
   );
 }
