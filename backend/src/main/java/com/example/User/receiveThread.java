@@ -13,11 +13,10 @@ public class receiveThread {
         try {
             Socket socket = conn.getSocket();
 
+
             DataInputStream dm = new DataInputStream(conn.getSocket().getInputStream());
             Gson gson = new Gson();
             Hospital hospital = gson.fromJson(dm.readUTF(), Hospital.class);
-
-
 
 
         } catch (Exception e){

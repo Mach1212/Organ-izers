@@ -15,22 +15,25 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, DeploymentException, URISyntaxException, IOException {
 
         SurrealWebSocketConnection conn = new SurrealWebSocketConnection("db", 8082, false);
-        conn.connect(5);
+        conn.connect(10);
         String tableName = "Hospital";
         SyncSurrealDriver driver = new SyncSurrealDriver(conn);
         driver.signIn("hacknc", "a_totally_secure_password_is_really_long");
         driver.use("namespace-name", "database-name");
 
         Map<String, Integer> map = new HashMap<>();
-        map.put("Heart", 0);
-        map.put("Liver", 0);
-        map.put("Kidney", 0);
-        map.put("Blood", 0);
+        map.put("Heart", 4);
+        map.put("Liver", 4);
+        map.put("Kidney", 3);
+        map.put("Blood", 4);
 
         Hospital unc = driver.create(tableName, new Hospital("UNC Hospitals", 35.903953, -79.050705,
                 map, map));
@@ -47,19 +50,19 @@ public class Main {
         List<Hospital> allHospitals = driver.select(tableName, Hospital.class);
         //driver.select(unc.id, Hospital.class).get(0).use(1, 2) Gets individual hospital
 
-        Gson gson = new Gson();
-        String message = gson.toJson(new Message());
-        conn.send(message);
 
-        Thread thread = new Thread(() -> new receiveThread(conn));
+        Socket socket = conn.getSocket();
+        Scanner scanner = new Scanner(socket.getInputStream());
+        String line;
+        while((line = scanner.nextLine()) != null) {
+            Gson gson = new Gson();
+            String message = gson.toJson(new Message());
+            conn.send(message);
+        }
 
-        thread.start();
-
-
-
-
-
-        conn.disconnect();
+//        Thread thread = new Thread(() -> new receiveThread(conn));
+//        thread.start();
+//        conn.disconnect();
     }
 
 }
