@@ -7,7 +7,7 @@ const Map = dynamic(() => import("@/components/map"), {
 
 export default function App() {
   return (
-    <main className="h-screen w-screen flex-row">
+    <main className="h-screen w-screen">
       <Map />
     </main>
   );
