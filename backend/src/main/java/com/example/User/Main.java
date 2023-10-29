@@ -16,8 +16,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, DeploymentException, URISyntaxException, IOException {
-        //Thread.sleep(2000);
-        System.out.println("jsi");
+
         SurrealWebSocketConnection conn = new SurrealWebSocketConnection("db", 8082, false);
         conn.connect(5);
         String tableName = "Hospital";
@@ -39,14 +38,20 @@ public class Main {
                 new int[]{4, 4, 4, 4}, new int[]{4, 2, 4, 4}));
         //List<Hospital> allHospitals = driver.s, elect(tableName, Hospital.class); List of all idk what it would be useful for.
         //System.out.println(driver.select(unc.id, Hospital.class).get(0).use(1, 2)); Gets individual hospital
-        //Socket echoSocket = new Socket("localhost", 8082);
 
         Gson gson = new Gson();
         String message = gson.toJson(new Message());
         conn.send(message);
 
+        Thread thread = new Thread(() -> new receiveThread(conn));
+
+        thread.start();
+
+
+
 
 
         conn.disconnect();
     }
+
 }
