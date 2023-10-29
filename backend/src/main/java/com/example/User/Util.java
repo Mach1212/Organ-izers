@@ -1,4 +1,4 @@
-package User;
+package com.example.User;
 
 public class Util {
 
