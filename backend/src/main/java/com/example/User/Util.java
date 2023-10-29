@@ -1,5 +1,7 @@
 package com.example.User;
 
+import java.util.List;
+
 public class Util {
 
     /**
@@ -16,7 +18,7 @@ public class Util {
         return Math.sqrt((latDif * latDif) + (longDif * longDif));
     }
 
-    public static Hospital closestValidHospital(Hospital[] list, Hospital hospital, int idx, int amount) {
+    public static Hospital closestValidHospital(List<Hospital> list, Hospital hospital, int idx, int amount) {
         Hospital closestValid = null;
         double minDist = Double.MAX_VALUE;
         for (Hospital value : list) {

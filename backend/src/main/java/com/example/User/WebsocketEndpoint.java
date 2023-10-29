@@ -1,13 +1,26 @@
 package com.example.User;
 
-import javax.websocket.CloseReason;
-import javax.websocket.Endpoint;
-import javax.websocket.EndpointConfig;
-import javax.websocket.Session;
+import javax.websocket.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class WebsocketEndpoint extends Endpoint {
-    @Override
+    public void connect() throws URISyntaxException, DeploymentException, IOException {
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        ClientEndpointConfig config = ClientEndpointConfig.Builder.create()
+                .configurator(new ClientEndpointConfig.Configurator()).build();
+
+        container.connectToServer(this, config, new URI("localhost:8082"));
+    }
+
+    public void drone(Drone drone) {
+        System.out.println("I'm a drone I guess");
+        boolean flag = true;
+        while (flag)
+            flag = !drone.droneMove();
+    }
+
     public void onOpen(Session session, EndpointConfig config) {
         System.out.println("WebSocket session opened");
     }
