@@ -2,15 +2,16 @@
 
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
-const Map = (props) => {
+function Map({ visibleSidebar }) {
     return (
         <MapContainer
             center={[35.909740, -79.047291]}
             zoom={13}
             scrollWheelZoom={false}
             style={{ height: "100%", width: "100%" }}
-            className={props.className}
         >
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -18,6 +19,7 @@ const Map = (props) => {
             />
             <Marker
                 position={[35.909740, -79.047291]}
+                eventHandlers={{ click: visibleSidebar }}
             >
                 <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
@@ -25,6 +27,6 @@ const Map = (props) => {
             </Marker>
         </MapContainer>
     );
-};
+}
 
 export default Map;
