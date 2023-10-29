@@ -18,11 +18,11 @@ public class Util {
         return Math.sqrt((latDif * latDif) + (longDif * longDif));
     }
 
-    public static Hospital closestValidHospital(List<Hospital> list, Hospital hospital, int idx, int amount) {
+    public static Hospital closestValidHospital(List<Hospital> list, Hospital hospital, String idx, int amount) {
         Hospital closestValid = null;
         double minDist = Double.MAX_VALUE;
         for (Hospital value : list) {
-            if (value.getSurplus()[idx] >= amount) {
+            if (value.getSurplus().get(idx) >= amount) {
                 //The hospital has a surplus of the designated organ!
                 double dist = getDistance(hospital, value);
                 if (dist < minDist) {

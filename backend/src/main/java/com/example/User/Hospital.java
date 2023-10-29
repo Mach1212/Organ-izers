@@ -1,6 +1,8 @@
 package com.example.User;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Hospital {
     String id;
@@ -14,23 +16,22 @@ public class Hospital {
      * 2: Kidney
      * 3: "Units" of Blood
      */
-    private int[] inventory;
+    private Map<String, Integer> inventory;
     /**
      * Each index represents the same organs, values represent how many the hospital should have
      */
-    private int[] requiredInventory;
+    private Map<String, Integer> requiredInventory;
 
 
     public Hospital() {
         name = "";
         latitude = 0;
         longitude = 0;
-        inventory = new int[4];
-        requiredInventory = new int[4];
+
 
     }
 
-    public Hospital(String name, double latitude, double longitude, int[] inventory, int[] requiredInventory) {
+    public Hospital(String name, double latitude, double longitude, Map<String, Integer> inventory, Map<String, Integer> requiredInventory) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -54,36 +55,39 @@ public class Hospital {
      * @return The amount of organs necessary to meet standards
      */
 
-    public int use(int idx, int amount) {
-        if (inventory[idx] - amount < 0) {
+    public int use(String idx, int amount) {
+        if (inventory.get(idx) - amount < 0) {
             throw new IllegalArgumentException("Not enough organs to use here");
         }
 
-        inventory[idx] -= amount;
-        if (inventory[idx] < requiredInventory[idx]) {
-            return requiredInventory[idx] - inventory[idx];
+        inventory.replace(idx, inventory.get(idx)-amount);
+        if (inventory.get(idx) < requiredInventory.get(idx)) {
+            return requiredInventory.get(idx) - inventory.get(idx);
         }
         return 0;
     }
 
-    public void addStock(int[] payload) {
-        for (int i = 0; i < payload.length; i++) {
-            inventory[i] += payload[i];
-        }
-    }
+//    public void addStock(Map<String, Integer> payload) {
+//        for (String entry : inventory.keySet()){
+//            payload.put(entry, inventory.get(entry));
+//        }
+//    }
 
-    public int[] getSurplus() {
-        int[] list = {0, 0, 0, 0};
-        for (int i = 0; i < 4; i++) {
-            list[i] = inventory[i] - requiredInventory[i];
+    public Map<String, Integer> getSurplus() {
+
+        Map<String, Integer> map = new HashMap<>();
+        for (String entry : inventory.keySet()){
+            map.put(entry, inventory.get(entry) - requiredInventory.get(entry));
         }
 
-        return list;
+        return map;
     }
 
     @Override
     public String toString() {
-        return name + " Lat: " + latitude + " Long: " + longitude + " Inv: " + Arrays.toString(inventory) +
-                " Req. Inv: " + Arrays.toString(requiredInventory);
+        return name + " Lat: " + latitude + " Long: " + longitude;
+    }
+    public Map<String, Integer> getInventory(){
+        return this.inventory;
     }
 }
