@@ -65,6 +65,12 @@ public class Hospital {
         return 0;
     }
 
+    public void addStock(int[] payload) {
+        for (int i = 0; i < payload.length; i++) {
+            inventory[i] += payload[i];
+        }
+    }
+
     public int[] getSurplus() {
         int[] list = {0, 0, 0, 0};
         for (int i = 0; i < 4; i++) {
