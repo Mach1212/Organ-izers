@@ -3,6 +3,7 @@ package com.example.User;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Hospital {
     String id;
@@ -50,28 +51,29 @@ public class Hospital {
     /**
      * Returns the amount of organs needed after an amount are used
      *
-     * @param idx    The index, representing the organ type
+     * @param key    The index, representing the organ type
      * @param amount The amount of organs used
      * @return The amount of organs necessary to meet standards
      */
 
-    public int use(String idx, int amount) {
-        if (inventory.get(idx) - amount < 0) {
+    public int use(String key, int amount) {
+        if (inventory.get(key) - amount < 0) {
             throw new IllegalArgumentException("Not enough organs to use here");
         }
 
-        inventory.replace(idx, inventory.get(idx)-amount);
-        if (inventory.get(idx) < requiredInventory.get(idx)) {
-            return requiredInventory.get(idx) - inventory.get(idx);
+        inventory.replace(key, inventory.get(key) - amount);
+        if (inventory.get(key) < requiredInventory.get(key)) {
+            return requiredInventory.get(key) - inventory.get(key);
         }
         return 0;
     }
 
-//    public void addStock(Map<String, Integer> payload) {
-//        for (String entry : inventory.keySet()){
-//            payload.put(entry, inventory.get(entry));
-//        }
-//    }
+    public void addStock(Map<String, Integer> payload) {
+        Iterable<Map.Entry<String, Integer>> it = payload.entrySet();
+        for (Map.Entry<String, Integer> entry : it) {
+            inventory.put(entry.getKey(), entry.getValue() + inventory.get(entry.getKey()));
+        }
+    }
 
     public Map<String, Integer> getSurplus() {
 
@@ -85,9 +87,9 @@ public class Hospital {
 
     @Override
     public String toString() {
-        return name + " Lat: " + latitude + " Long: " + longitude;
+        return name + " Lat: " + latitude + " Long: " + longitude + " inv: " + inventory.toString() + " Req. inv: " + requiredInventory.toString();
     }
-    public Map<String, Integer> getInventory(){
+    public Map<String, Integer> getInventory() {
         return this.inventory;
     }
 }
