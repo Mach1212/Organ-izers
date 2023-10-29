@@ -56,12 +56,7 @@ public class Government {
                 database[2].use(idx, amt);
 
                 //Configure payload
-                int[] payload = new int[4];
-                for (int i = 0; i < idx; i++)
-                    payload[i] = 0;
-                payload[idx] = needed;
-                for (int i = idx + 1; i < 4; i++)
-                    payload[i] = 0;
+                int[] payload = Util.createPayload(idx, amt);
 
 
                 //Send drone!

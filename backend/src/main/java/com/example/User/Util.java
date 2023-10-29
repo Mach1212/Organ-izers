@@ -37,4 +37,15 @@ public class Util {
 
         return closestValid;
     }
+
+    public static int[] createPayload(int idx, int amt) {
+        int[] payload = new int[4];
+        for (int i = 0; i < idx; i++)
+            payload[i] = 0;
+        payload[idx] = amt;
+        for (int i = idx + 1; i < 4; i++)
+            payload[i] = 0;
+
+        return payload;
+    }
 }
