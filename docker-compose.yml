@@ -33,8 +33,3 @@ services:
       - --bind
       - 0.0.0.0:${DB_PORT:?error}
       # - file://db
-    healthcheck:
-      test: /health
-      interval: 5s
-      timeout: 10s
-      retries: 120
