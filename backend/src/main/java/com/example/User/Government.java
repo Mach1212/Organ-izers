@@ -12,7 +12,7 @@ public class Government {
     public static void main(String[] args) {
         Hospital h1 = new Hospital("UNC", 50.0, 60.0, new int[]{2, 3, 2, 2}, new int[]{2, 2, 2, 2});
         Hospital h2 = new Hospital("Duke", 100.0, 100.0, new int[]{3, 3, 3, 3}, new int[]{2, 2, 2, 2});
-        Hospital h3 = new Hospital("Wake", -50.0, -40.0, new int[]{4, 4, 4, 4}, new int[]{1, 1, 1, 1});
+        Hospital h3 = new Hospital("Wake", -50.0, -40.0, new int[]{4, 2, 4, 4}, new int[]{1, 1, 1, 1});
 
         System.out.println("Distance: (64.03) " + Util.getDistance(h1, h2));
         System.out.println("Distance: (141.42) " + Util.getDistance(h1, h3));

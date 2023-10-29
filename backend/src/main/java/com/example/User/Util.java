@@ -2,16 +2,23 @@ package com.example.User;
 
 public class Util {
 
+    /**
+     * Returns distance between the hospitals in feet
+     *
+     * @param one The first hospital
+     * @param two The second hospital
+     * @return The distance between the hospitals in feet
+     */
     public static double getDistance(Hospital one, Hospital two) {
-        double latDif = one.getLatitude() - two.getLatitude();
-        double longDif = one.getLongitude() - two.getLongitude();
+        double latDif = (one.getLatitude() - two.getLatitude()) * 364000;
+        double longDif = (one.getLongitude() - two.getLongitude()) * 288200;
 
         return Math.sqrt((latDif * latDif) + (longDif * longDif));
     }
 
     public static Hospital closestValidHospital(Hospital[] list, Hospital hospital, int idx, int amount) {
         Hospital closestValid = null;
-        double minDist = Integer.MAX_VALUE;
+        double minDist = Double.MAX_VALUE;
         for (Hospital value : list) {
             if (value.getSurplus()[idx] >= amount) {
                 //The hospital has a surplus of the designated organ!
@@ -23,7 +30,7 @@ public class Util {
             }
         }
 
-        if (minDist == Integer.MAX_VALUE) {
+        if (minDist == Double.MAX_VALUE) {
             //No hospital has spares! YIKES
             return null;
         }
